@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Demo Payment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        .row {
+            margin-bottom: 12px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #0078D7;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .note {
+            font-size: 12px;
+            color: #666;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2 id="pname">Product</h2>
+        <p id="pmeta"></p>
+
+        <div class="row">
+            <label>Card Number</label>
+            <input id="card" placeholder="4111 1111 1111 1111" />
+        </div>
+        <div class="row">
+            <label>Expiry (MM/YY)</label>
+            <input id="exp" placeholder="12/28" />
+        </div>
+        <div class="row">
+            <label>CVV</label>
+            <input id="cvv" placeholder="123" />
+        </div>
+
+        <button id="pay">Pay Now</button>
+        <p class="note">payment.</p>
+    </div>
+
+    <script>
+        // Parse product info from query string
+        const q = new URLSearchParams(location.search);
+        const pid = q.get('pid'), price = q.get('price'), name = q.get('name'), sender= q.get('sender')
+        document.getElementById('pname').textContent = name || 'Selected product';
+        document.getElementById('pmeta').textContent = `ID: ${pid} • ₹${price}`;
+
+        // Dummy validation
+        function isValid() {
+            const card = document.getElementById('card').value.replace(/\s+/g, '');
+            const exp = document.getElementById('exp').value;
+            const cvv = document.getElementById('cvv').value;
+            return card.length >= 12 && /^\d{2}\/\d{2}$/.test(exp) && /^\d{3,4}$/.test(cvv);
+        }
+
+        // Send event to Yellow.ai bot
+        async function sendBotEvent(payload) {
+            const url = "https://r0.cloud.yellow.ai/integrations/sync/v1/message";
+            await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-api-key": "RjCvKmxryBY6jiLz9G5lVmNWrllV35gb7LrYJjRe"
+                },
+                body: JSON.stringify(payload)
+            });
+        }
+
+        document.getElementById('pay').addEventListener('click', async () => {
+            if (!isValid()) { alert("Enter valid demo details."); return; }
+
+            const txnId = 'TXN-' + Math.random().toString(36).slice(2, 8).toUpperCase();
+
+            const payload = {
+                botId: "x1761840763362",
+                sender: sender,
+                data: {
+                    event: {
+                        code: "payment_done",
+                        data: {
+                            name: "Likhin",
+                            pid: pid,
+                            price: price,
+                            txnId: txnId,
+                            status: "SUCCESS",
+                            mode: "CARD_DEMO"
+                        }
+                    }
+                }
+            };
+
+            try {
+                await sendBotEvent(payload);
+                alert("Payment simulated. Returning to chat...");
+            } catch (e) {
+                alert("Could not notify the bot. Please retry.");
+            }
+        });
+    </script>
+</body>
+
+</html>
