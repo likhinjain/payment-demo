@@ -128,7 +128,9 @@
 
             try {
                 await sendBotEvent(payload);
-                alert("Payment simulated. Returning to chat...");
+                alert("Payment Completed. Returning to chat...");
+                window.location.href = "https://cloud.yellow.ai/liveBot/x1761840763362"
+                
             } catch (e) {
                 alert("Could not notify the bot. Please retry.");
             }
