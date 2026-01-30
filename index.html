@@ -72,7 +72,7 @@
         </div>
 
         <button id="pay">Pay Now</button>
-        <p class="note">payment.</p>
+        <p class="note">Cart Genie Payment Gateway</p>
     </div>
 
     <script>
@@ -80,7 +80,7 @@
         const q = new URLSearchParams(location.search);
         const pid = q.get('pid'), price = q.get('price'), name = q.get('name'), sender= q.get('sender')
         document.getElementById('pname').textContent = name || 'Selected product';
-        document.getElementById('pmeta').textContent = `ID: ${pid} • ₹${price}`;
+        document.getElementById('pmeta').textContent = `Transaction ID: ${pid} • ${price}`;
 
         // Dummy validation
         function isValid() {
