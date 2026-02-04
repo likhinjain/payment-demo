@@ -233,7 +233,7 @@ const sender = q.get('sender');
 
 product.textContent = productName || '—';
 order.textContent = pid || '—';
-price.textContent = priceVal ? `₹${priceVal}` : '₹0';
+price.textContent = priceVal ? `${priceVal}` : '₹0';
 
 /* ------------------ CARD SYNC ------------------ */
 card.oninput = () => {
