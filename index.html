@@ -281,17 +281,14 @@ setInterval(() => {
 /* ------------------ VALIDATION ------------------ */
 function isValid() {
     const cardNum = card.value.replace(/\D/g, '');
-    const cvvNum = cvv.value;
+    const cvvNum = cvv.value.replace(/\D/g, '');
+    const expDigits = exp.value.replace(/\D/g, ''); // <-- KEY FIX
 
-    // Normalize expiry: remove spaces
-    const expRaw = exp.value.replace(/\s/g, '');
+    // expDigits must be exactly 4 digits: MMYY
+    if (expDigits.length !== 4) return false;
 
-    // Match MM/YY
-    const match = expRaw.match(/^(\d{2})\/(\d{2})$/);
-    if (!match) return false;
-
-    const mm = parseInt(match[1], 10);
-    const yy = parseInt(match[2], 10);
+    const mm = parseInt(expDigits.slice(0, 2), 10);
+    const yy = parseInt(expDigits.slice(2), 10);
 
     return (
         cardNum.length === 16 &&
@@ -299,6 +296,7 @@ function isValid() {
         mm >= 1 && mm <= 12
     );
 }
+
 
 
 /* ------------------ YELLOW.AI BACKEND ------------------ */
