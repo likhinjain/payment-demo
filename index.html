@@ -279,13 +279,26 @@ setInterval(() => {
 }, 1000);
 
 /* ------------------ VALIDATION ------------------ */
-function isValid(){
+function isValid() {
+    const cardNum = card.value.replace(/\D/g, '');
+    const cvvNum = cvv.value;
+    const expVal = exp.value;
+
+    // Expiry MM/YY validation
+    const match = expVal.match(/^(\d{2})\/(\d{2})$/);
+    if (!match) return false;
+
+    const mm = parseInt(match[1], 10);
+    const yy = parseInt(match[2], 10);
+
     return (
-        card.value.replace(/\D/g,'').length === 16 &&
-        cvv.value.length === 3 &&
-        exp.value.length === 7
+        cardNum.length === 16 &&
+        cvvNum.length === 3 &&
+        mm >= 1 && mm <= 12 &&
+        yy >= 0
     );
 }
+
 
 /* ------------------ YELLOW.AI BACKEND ------------------ */
 async function sendBotEvent(payload){
