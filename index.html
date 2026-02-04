@@ -282,10 +282,12 @@ setInterval(() => {
 function isValid() {
     const cardNum = card.value.replace(/\D/g, '');
     const cvvNum = cvv.value;
-    const expVal = exp.value;
 
-    // Expiry MM/YY validation
-    const match = expVal.match(/^(\d{2})\/(\d{2})$/);
+    // Normalize expiry: remove spaces
+    const expRaw = exp.value.replace(/\s/g, '');
+
+    // Match MM/YY
+    const match = expRaw.match(/^(\d{2})\/(\d{2})$/);
     if (!match) return false;
 
     const mm = parseInt(match[1], 10);
@@ -294,8 +296,7 @@ function isValid() {
     return (
         cardNum.length === 16 &&
         cvvNum.length === 3 &&
-        mm >= 1 && mm <= 12 &&
-        yy >= 0
+        mm >= 1 && mm <= 12
     );
 }
 
