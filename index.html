@@ -1,351 +1,382 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<title>AceCoinPay</title>
+    <meta charset="utf-8">
+    <title>AceCoinPay</title>
 
-<style>
-/* ⬇️ UNCHANGED UI STYLES ⬇️ */
-body{
-    margin:0;
-    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background: linear-gradient(135deg,#cfe3f1,#1f6bff);
-    padding:40px;
-}
+    <style>
+        /* ⬇️ UNCHANGED UI STYLES ⬇️ */
+        body {
+            margin: 0;
+            font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(135deg, #cfe3f1, #1f6bff);
+            padding: 40px;
+        }
 
-.shell{
-    max-width:1200px;
-    margin:auto;
-    background:#fff;
-    border-radius:18px;
-    padding:32px;
-    box-shadow:0 40px 90px rgba(0,0,0,.25);
-    display:grid;
-    grid-template-columns:1.6fr 1fr;
-    gap:30px;
-}
+        .shell {
+            max-width: 1200px;
+            margin: auto;
+            background: #fff;
+            border-radius: 18px;
+            padding: 32px;
+            box-shadow: 0 40px 90px rgba(0, 0, 0, .25);
+            display: grid;
+            grid-template-columns: 1.6fr 1fr;
+            gap: 30px;
+        }
 
-/* HEADER */
-.header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    margin-bottom:30px;
-}
-.brand{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    font-size:22px;
-    font-weight:600;
-}
-.brand-icon{
-    width:36px;height:36px;
-    background:#1f6bff;
-    border-radius:50%;
-    display:flex;align-items:center;justify-content:center;
-    color:#fff;font-weight:700;
-}
-.timer span{
-    background:#0f1e46;
-    color:#fff;
-    padding:8px 10px;
-    border-radius:6px;
-    font-size:16px;
-    margin-left:4px;
-}
+        /* HEADER */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
 
-/* LEFT */
-label{
-    font-size:14px;
-    font-weight:600;
-    color:#0f172a;
-}
-.sub{
-    font-size:12px;
-    color:#64748b;
-    margin:6px 0 10px;
-}
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 22px;
+            font-weight: 600;
+        }
 
-.input{
-    border:1px solid #e5e7eb;
-    border-radius:12px;
-    padding:16px;
-    font-size:16px;
-    width:100%;
-    outline:none;
-}
-.input:focus{
-    border-color:#1f6bff;
-    box-shadow:0 0 0 3px rgba(31,107,255,.15);
-}
+        .brand-icon {
+            width: 36px;
+            height: 36px;
+            background: #1f6bff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+        }
 
-.card-input{
-    display:flex;
-    align-items:center;
-    gap:14px;
-}
-.badge{
-    width:26px;height:26px;
-    border-radius:50%;
-    background:#1f6bff;
-    color:#fff;
-    display:flex;align-items:center;justify-content:center;
-    font-size:14px;
-}
+        .timer span {
+            background: #0f1e46;
+            color: #fff;
+            padding: 8px 10px;
+            border-radius: 6px;
+            font-size: 16px;
+            margin-left: 4px;
+        }
 
-.row{display:flex;gap:18px;margin-top:20px}
+        /* LEFT */
+        label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #0f172a;
+        }
 
-.pay{
-    margin-top:36px;
-    width:100%;
-    padding:18px;
-    font-size:18px;
-    background:#1f6bff;
-    border:none;
-    color:#fff;
-    border-radius:14px;
-    font-weight:600;
-}
+        .sub {
+            font-size: 12px;
+            color: #64748b;
+            margin: 6px 0 10px;
+        }
 
-/* RIGHT */
-.right{
-    background:#f8fafc;
-    border-radius:18px;
-    padding:26px;
-    position:relative;
-}
+        .input {
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 16px;
+            font-size: 16px;
+            width: 100%;
+            outline: none;
+        }
 
-.card-preview{
-    background:#fff;
-    border-radius:18px;
-    padding:24px;
-    box-shadow:0 25px 60px rgba(0,0,0,.2);
-    margin-bottom:28px;
-}
-.card-chip{
-    width:42px;height:30px;
-    background:linear-gradient(#d1d5db,#9ca3af);
-    border-radius:6px;
-    margin-bottom:18px;
-}
-.card-num{
-    letter-spacing:3px;
-    font-size:16px;
-    margin-bottom:12px;
-}
-.card-exp{
-    font-size:14px;
-    color:#334155;
-}
+        .input:focus {
+            border-color: #1f6bff;
+            box-shadow: 0 0 0 3px rgba(31, 107, 255, .15);
+        }
 
-.summary-row{
-    display:flex;
-    justify-content:space-between;
-    font-size:14px;
-    margin-bottom:10px;
-    color:#334155;
-}
-.total{
-    margin-top:18px;
-    font-size:22px;
-    font-weight:700;
-    color:#0f172a;
-}
-</style>
+        .card-input {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .badge {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: #1f6bff;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .row {
+            display: flex;
+            gap: 18px;
+            margin-top: 20px
+        }
+
+        .pay {
+            margin-top: 36px;
+            width: 100%;
+            padding: 18px;
+            font-size: 18px;
+            background: #1f6bff;
+            border: none;
+            color: #fff;
+            border-radius: 14px;
+            font-weight: 600;
+        }
+
+        /* RIGHT */
+        .right {
+            background: #f8fafc;
+            border-radius: 18px;
+            padding: 26px;
+            position: relative;
+        }
+
+        .card-preview {
+            background: #fff;
+            border-radius: 18px;
+            padding: 24px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, .2);
+            margin-bottom: 28px;
+        }
+
+        .card-chip {
+            width: 42px;
+            height: 30px;
+            background: linear-gradient(#d1d5db, #9ca3af);
+            border-radius: 6px;
+            margin-bottom: 18px;
+        }
+
+        .card-num {
+            letter-spacing: 3px;
+            font-size: 16px;
+            margin-bottom: 12px;
+        }
+
+        .card-exp {
+            font-size: 14px;
+            color: #334155;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: #334155;
+        }
+
+        .total {
+            margin-top: 18px;
+            font-size: 22px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="shell">
+    <div class="shell">
 
-<!-- LEFT -->
-<div>
-    <div class="header">
-        <div class="brand">
-            <div class="brand-icon">💳</div>
-            Cart Payment
+        <!-- LEFT -->
+        <div>
+            <div class="header">
+                <div class="brand">
+                    <div class="brand-icon">💳</div>
+                    Cart Payment
+                </div>
+                <div class="timer">
+                    <span id="m">01</span><span>:</span><span id="s">19</span>
+                </div>
+            </div>
+
+            <label>Card Number</label>
+            <div class="sub">Enter the 16-digit card number on the card</div>
+            <div class="card-input">
+                <input id="card" class="input" placeholder="2412 - 7512 - 3412 - 3456" maxlength="25">
+                <div class="badge">✓</div>
+            </div>
+
+            <div class="row">
+                <div style="flex:1">
+                    <label>CVV Number</label>
+                    <div class="sub">Enter the 3 digit number</div>
+                    <input id="cvv" class="input" type="password" maxlength="3" inputmode="numeric">
+                </div>
+                <div style="flex:1">
+                    <label>Expiry Date</label>
+                    <div class="sub">Enter the expiration date</div>
+                    <input id="exp" class="input" placeholder="MM / YY" maxlength="5">
+                </div>
+            </div>
+
+            <div class="row">
+                <div style="flex:1">
+                    <label>Password</label>
+                    <div class="sub">Enter your password</div>
+                    <input class="input" type="password" placeholder="••••••">
+                </div>
+            </div>
+
+            <button id="pay" class="pay">Pay Now</button>
         </div>
-        <div class="timer">
-            <span id="m">01</span><span>:</span><span id="s">19</span>
+
+        <!-- RIGHT -->
+        <div class="right">
+            <div class="card-preview">
+                <div class="card-chip"></div>
+                <div id="cardView" class="card-num">•••• •••• •••• ••••</div>
+                <div id="expView" class="card-exp">MM / YY</div>
+            </div>
+
+            <div class="summary-row">
+                <span>Product</span><span id="product"></span>
+            </div>
+            <div class="summary-row">
+                <span>Order Number</span><span id="order"></span>
+            </div>
+            <div class="summary-row total">
+                <span>You have to Pay</span><span id="price"></span>
+            </div>
         </div>
+
     </div>
 
-    <label>Card Number</label>
-    <div class="sub">Enter the 16-digit card number on the card</div>
-    <div class="card-input">
-        <input id="card" class="input" placeholder="2412 - 7512 - 3412 - 3456" maxlength="25">
-        <div class="badge">✓</div>
-    </div>
+    <script>
+        /* ------------------ DYNAMIC DATA ------------------ */
+        const q = new URLSearchParams(location.search);
+        const productName = q.get('name');
+        const pid = q.get('pid');
+        const priceVal = q.get('price');
+        const sender = q.get('sender');
+        const botid = q.get('botid');
 
-    <div class="row">
-        <div style="flex:1">
-            <label>CVV Number</label>
-            <div class="sub">Enter the 3 digit number</div>
-            <input id="cvv" class="input" type="password" maxlength="3" inputmode="numeric">
-        </div>
-        <div style="flex:1">
-            <label>Expiry Date</label>
-            <div class="sub">Enter the expiration date</div>
-            <input id="exp" class="input" placeholder="MM / YY" maxlength="5">
-        </div>
-    </div>
+        product.textContent = productName || '—';
+        order.textContent = pid || '—';
+        price.textContent = priceVal ? `${priceVal}` : '₹0';
 
-    <div class="row">
-        <div style="flex:1">
-            <label>Password</label>
-            <div class="sub">Enter your password</div>
-            <input class="input" type="password" placeholder="••••••">
-        </div>
-    </div>
+        /* ------------------ CARD SYNC ------------------ */
+        card.oninput = () => {
+            let v = card.value.replace(/\D/g, '').slice(0, 16);
+            v = v.replace(/(.{4})/g, '$1 - ').slice(0, 25);
+            card.value = v;
+            cardView.textContent = v.replace(/-/g, '').trim() || '•••• •••• •••• ••••';
+        };
 
-    <button id="pay" class="pay">Pay Now</button>
-</div>
+        exp.addEventListener("input", () => {
+            let v = exp.value
+                .replace(/[^\d/]/g, '')   // allow digits and /
+                .replace(/\/{2,}/g, '/')  // prevent multiple slashes
+                .slice(0, 5);
 
-<!-- RIGHT -->
-<div class="right">
-    <div class="card-preview">
-        <div class="card-chip"></div>
-        <div id="cardView" class="card-num">•••• •••• •••• ••••</div>
-        <div id="expView" class="card-exp">MM / YY</div>
-    </div>
-
-    <div class="summary-row">
-        <span>Product</span><span id="product"></span>
-    </div>
-    <div class="summary-row">
-        <span>Order Number</span><span id="order"></span>
-    </div>
-    <div class="summary-row total">
-        <span>You have to Pay</span><span id="price"></span>
-    </div>
-</div>
-
-</div>
-
-<script>
-/* ------------------ DYNAMIC DATA ------------------ */
-const q = new URLSearchParams(location.search);
-const productName = q.get('name');
-const pid = q.get('pid');
-const priceVal = q.get('price');
-const sender = q.get('sender');
-
-product.textContent = productName || '—';
-order.textContent = pid || '—';
-price.textContent = priceVal ? `${priceVal}` : '₹0';
-
-/* ------------------ CARD SYNC ------------------ */
-card.oninput = () => {
-    let v = card.value.replace(/\D/g,'').slice(0,16);
-    v = v.replace(/(.{4})/g,'$1 - ').slice(0,25);
-    card.value = v;
-    cardView.textContent = v.replace(/-/g,'').trim() || '•••• •••• •••• ••••';
-};
-
-exp.addEventListener("input", () => {
-    let v = exp.value
-        .replace(/[^\d/]/g, '')   // allow digits and /
-        .replace(/\/{2,}/g, '/')  // prevent multiple slashes
-        .slice(0, 5);
-
-    // Auto add slash if user types 1223
-    if (/^\d{2}$/.test(v)) {
-        exp.value = v;
-    }
-    else if (/^\d{2}\d+$/.test(v)) {
-        exp.value = v.slice(0,2) + '/' + v.slice(2);
-    }
-    else {
-        exp.value = v;
-    }
-
-    expView.textContent = exp.value || 'MM / YY';
-});
-
-
-
-cvv.oninput = () => {
-    cvv.value = cvv.value.replace(/\D/g,'').slice(0,3);
-};
-
-/* ------------------ TIMER ------------------ */
-let t = 180;
-setInterval(() => {
-    if (t <= 0) return;
-    t--;
-    m.textContent = String(Math.floor(t/60)).padStart(2,'0');
-    s.textContent = String(t%60).padStart(2,'0');
-}, 1000);
-
-/* ------------------ VALIDATION ------------------ */
-function isValid() {
-    const cardNum = card.value.replace(/\D/g, '');
-    const cvvNum = cvv.value.replace(/\D/g, '');
-    const expDigits = exp.value.replace(/\D/g, ''); // <-- KEY FIX
-
-    // expDigits must be exactly 4 digits: MMYY
-    if (expDigits.length !== 4) return false;
-
-    const mm = parseInt(expDigits.slice(0, 2), 10);
-    const yy = parseInt(expDigits.slice(2), 10);
-
-    return (
-        cardNum.length === 16 &&
-        cvvNum.length === 3 &&
-        mm >= 1 && mm <= 12
-    );
-}
-
-
-
-/* ------------------ YELLOW.AI BACKEND ------------------ */
-async function sendBotEvent(payload){
-    await fetch("https://r0.cloud.yellow.ai/integrations/sync/v1/message",{
-        method:"POST",
-        headers:{
-            "Content-Type":"application/json",
-            "x-api-key":"RjCvKmxryBY6jiLz9G5lVmNWrllV35gb7LrYJjRe"
-        },
-        body:JSON.stringify(payload)
-    });
-}
-
-pay.onclick = async () => {
-    if(!isValid()){
-        alert("Enter valid payment details");
-        return;
-    }
-
-    const txnId = "TXN-" + Math.random().toString(36).slice(2,8).toUpperCase();
-
-    const payload = {
-        botId:"x1761840763362",
-        sender: sender,
-        data:{
-            event:{
-                code:"payment_done",
-                data:{
-                    pid,
-                    price: priceVal,
-                    txnId,
-                    status:"SUCCESS",
-                    mode:"CARD"
-                }
+            // Auto add slash if user types 1223
+            if (/^\d{2}$/.test(v)) {
+                exp.value = v;
             }
+            else if (/^\d{2}\d+$/.test(v)) {
+                exp.value = v.slice(0, 2) + '/' + v.slice(2);
+            }
+            else {
+                exp.value = v;
+            }
+
+            expView.textContent = exp.value || 'MM / YY';
+        });
+
+
+
+        cvv.oninput = () => {
+            cvv.value = cvv.value.replace(/\D/g, '').slice(0, 3);
+        };
+
+        /* ------------------ TIMER ------------------ */
+        let t = 180;
+        setInterval(() => {
+            if (t <= 0) return;
+            t--;
+            m.textContent = String(Math.floor(t / 60)).padStart(2, '0');
+            s.textContent = String(t % 60).padStart(2, '0');
+        }, 1000);
+
+        /* ------------------ VALIDATION ------------------ */
+        function isValid() {
+            const cardNum = card.value.replace(/\D/g, '');
+            const cvvNum = cvv.value.replace(/\D/g, '');
+            const expDigits = exp.value.replace(/\D/g, ''); // <-- KEY FIX
+
+            // expDigits must be exactly 4 digits: MMYY
+            if (expDigits.length !== 4) return false;
+
+            const mm = parseInt(expDigits.slice(0, 2), 10);
+            const yy = parseInt(expDigits.slice(2), 10);
+
+            return (
+                cardNum.length === 16 &&
+                cvvNum.length === 3 &&
+                mm >= 1 && mm <= 12
+            );
         }
-    };
 
-try {
-        await sendBotEvent(payload);
-        alert("Payment Completed. Returning to chat..");
-        window.location.href = "https://cloud.yellow.ai/liveBot/x1761840763362";
-      } catch (e) {
-        alert("Could not notify the bot. Please retry.");
-      }
 
-};
-</script>
+
+        /* ------------------ YELLOW.AI BACKEND ------------------ */
+        let apiKey = ""
+        if (botid == "x1761840763362") {
+            apiKey = "RjCvKmxryBY6jiLz9G5lVmNWrllV35gb7LrYJjRe"
+        } else {
+            apiKey = "SukFRc_RBi_TxYvtjPkc4wZJa_KrBEiQwhiN2yaw"
+        }
+        async function sendBotEvent(payload) {
+            await fetch("https://r0.cloud.yellow.ai/integrations/sync/v1/message", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-api-key": apiKey
+                },
+                body: JSON.stringify(payload)
+            });
+        }
+
+        pay.onclick = async () => {
+            if (!isValid()) {
+                alert("Enter valid payment details");
+                return;
+            }
+
+            const txnId = "TXN-" + Math.random().toString(36).slice(2, 8).toUpperCase();
+
+            const payload = {
+                botId: "x1761840763362",
+                sender: sender,
+                data: {
+                    event: {
+                        code: "payment_done",
+                        data: {
+                            pid,
+                            price: priceVal,
+                            txnId,
+                            status: "SUCCESS",
+                            mode: "CARD"
+                        }
+                    }
+                }
+            };
+
+            try {
+                await sendBotEvent(payload);
+                alert("Payment Completed. Returning to chat..");
+                window.location.href = `https://cloud.yellow.ai/liveBot/${botid}`;
+            } catch (e) {
+                alert("Could not notify the bot. Please retry.");
+            }
+
+        };
+    </script>
 
 </body>
+
 </html>
